@@ -338,3 +338,7 @@ def delete_from_main(request, aliment_id):
         return redirect(path)
     else:
         return redirect(path)
+
+
+def send_infos(request):
+    pass
