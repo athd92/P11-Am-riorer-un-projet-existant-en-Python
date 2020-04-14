@@ -5,158 +5,151 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Pur Beurre</title>
-  <link rel="icon" type="image/png" href="{% static 'img/logo_pur_beurre-favicon.png' %}" />
-  <!-- Font Awesome Icons -->
-  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <title>Pur Beurre</title>
+    <link rel="icon" type="image/png" href="{% static 'img/logo_pur_beurre-favicon.png' %}" />
+    <!-- Font Awesome Icons -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
-  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
 
 
-  <!-- Plugin CSS -->
-  <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+    <!-- Plugin CSS -->
+    <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
 
-  <!-- Theme CSS - Includes Bootstrap -->
-  <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+    <!-- Theme CSS - Includes Bootstrap -->
+    <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
+    <!-- Navigation -->
 
-  <!-- Navigation -->
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav">
-    <a class="navbar-brand js-scroll-trigger" href="/">
-  <img class="img-fluid " src="{% static 'img/logo_pur_beurre.png' %}" alt="" style="width: 20%;">
-  Pur Beurre</a>
-  <div class="navbar-toggler" data-toggle="collapse" data-target='#navbarResponsive'>
-    <span class="navbar-toggler-icon"></span>
-  </div>
-
-
-
-{% if user.is_authenticated %}
-<div class="collapse navbar-collapse mr-5 " id="navbarResponsive" >
-<ul class="navbar-nav ml-auto my-2 " >
-<li class="nav-item">
-<div class="input-group mb-3">
-
-  {% block formu %}
-  {% include './includes/searchbar.html' %}
-  {% endblock %}
-</li>
-
-<li class="nav-item  mt-2">
-  <a class="nav-link js-scroll-trigger" href="/account"> Mon compte </a>
-</li>
-<li class="nav-item  mt-2">
-  <a class="nav-link js-scroll-trigger" href="/saved">Mes aliments</a>
-</li>
-<li class="nav-item  mt-2">
-  <a class="nav-link js-scroll-trigger" href="/logout">Déconnexion</a>
-</li>
-{% else %}
-<div class="collapse navbar-collapse mr-5" id="navbarResponsive">
-  <ul class="navbar-nav ml-auto my-2 my-lg-0">
-  <li class="nav-item">
-      
-    <a class="nav-link js-scroll-trigger" href="/login/">
-    <i class="fa fa-user-circle" aria-hidden="true"></i> Me connecter
-  </a>
-  </li>            
-{% endif %}
-</ul>
-</div>
-</nav>
-
-  <!-- Masthead -->
-  {% block content %}
-
-  <header class="masthead">
-
-    <div class="container h-50 text-center">
-      <div class="align-items-center text-center" style="margin-top: 70px; opacity: 0.8;">
-          {% if user.is_authenticated%}
-          <h1 class="text-center text-white font-weight-bold">{{aliment.name}}</h1>
-        <a href="#" class="btn btn-info btn-lg" id="mail">Recevoir par mail
-           <i class="far fa-paper-plane"></i>
-        </a>
-      </p> 
-          {% else %}
-          <h1 class="text-center text-white font-weight-bold">{{aliment.name}}</h1>
-          {% endif %}
-          <hr class="divider my-4">
-
-          <div class="row">
-          {% if aliment.nutriscore == 'a' %}
-          <img src="{% static 'img/nutria.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px;margin-bottom: 25px;">
-          {% elif aliment.nutriscore == 'b' %}
-          <img src="{% static 'img/nutrib.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;">
-          {% elif aliment.nutriscore == 'c' %}
-          <img src="{% static 'img/nutric.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;">
-          {% elif aliment.nutriscore == 'd' %}
-          <img src="{% static 'img/nutrid.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;">
-          {% elif aliment.nutriscore == 'e' %}
-          <img src="{% static 'img/nutrie.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;">
-          {% endif %}
+    <!-- Navigation -->
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav">
+        <a class="navbar-brand js-scroll-trigger" href="/">
+            <img class="img-fluid " src="{% static 'img/logo_pur_beurre.png' %}" alt="" style="width: 20%;"> Pur Beurre</a>
+        <div class="navbar-toggler" data-toggle="collapse" data-target='#navbarResponsive'>
+            <span class="navbar-toggler-icon"></span>
         </div>
 
-          <h6 class="text-left text-white"><strong>Date de l'information:</strong> {{ date }}</h6>
-          <h6 class="text-left text-white"><strong>Marque :</strong> {{ aliment.brands }}</h6>
-          <h6 class="text-left text-white"><strong>Portions :</strong> {{ aliment.quantity }}</h6>          
-          <h6 class="text-left text-white"><strong>Distributeurs :</strong> {{ aliment.brands }}</h6>
-          <h6 class="text-left text-white"><strong>Ingrédients :</strong> {{ aliment.ingredients_fr }}</h6>
-          <h6 class="text-left text-white"><strong>Emballage:</strong> {{ aliment.packaging }}</h6>
-          <h6 class="text-left text-white"><strong>Pays fournisseur :</strong> {{ aliment.manufactured_places }}</h6>
-          <h6 class="text-left text-white"><strong>Code produit :</strong> {{ aliment.code }}</h6>
-          <h6 class="text-left text-white"><strong>Provenance de l'information :</strong> {{ aliment.purchase_places }}</h6>
-          <br>
-          <h3 class="text-center text-white"><a href="{{aliment.url}}" style="color: burlywood;">Voir la fiche d'OpenFoodFact</a></h3>
-      </div>
-    </div>
-  </header>
-  {% endblock %}
 
 
-  <!-- Footer -->
-  <footer class="bg-light py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <div class="small text-center text-muted">Mentions légales</div>
-              </div>
-              <div class="col-sm">
-                
-              </div>
-              <div class="col-sm">
-                <div class="small text-center text-muted">Contact</div>
-              </div>
+        {% if user.is_authenticated %}
+        <div class="collapse navbar-collapse mr-5 " id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 ">
+                <li class="nav-item">
+                    <div class="input-group mb-3">
 
+                        {% block formu %} {% include './includes/searchbar.html' %} {% endblock %}
+                </li>
+
+                <li class="nav-item  mt-2">
+                    <a class="nav-link js-scroll-trigger" href="/account"> Mon compte </a>
+                </li>
+                <li class="nav-item  mt-2">
+                    <a class="nav-link js-scroll-trigger" href="/saved">Mes aliments</a>
+                </li>
+                <li class="nav-item  mt-2">
+                    <a class="nav-link js-scroll-trigger" href="/logout">Déconnexion</a>
+                </li>
+                {% else %}
+                <div class="collapse navbar-collapse mr-5" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <li class="nav-item">
+
+                            <a class="nav-link js-scroll-trigger" href="/login/">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i> Me connecter
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+    </nav>
+
+    <!-- Masthead -->
+    {% block content %}
+
+    <header class="masthead">
+        <p style="display: none;" id='aliment_id'>{{aliment_id}}</p>
+
+        <div class="container h-50 text-center">
+            <div class="align-items-center text-center" style="margin-top: 70px; opacity: 0.8;">
+                {% if user.is_authenticated%}
+                <h1 class="text-center text-white font-weight-bold">{{aliment.name}}</h1>
+                <a href="{% url 'main:send_infos' aliment_id=aliment.id %}" class="btn btn-info btn-lg" id="mail">Recevoir par mail <i class="far fa-paper-plane"></i></a>
+
+                </a>
+                </p>
+                {% else %}
+                <h1 class="text-center text-white font-weight-bold">{{aliment.name}}</h1>
+                {% endif %}
+                <hr class="divider my-4">
+
+                <div class="row">
+                    {% if aliment.nutriscore == 'a' %}
+                    <img src="{% static 'img/nutria.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px;margin-bottom: 25px;"> {% elif aliment.nutriscore == 'b' %}
+                    <img src="{% static 'img/nutrib.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;"> {% elif aliment.nutriscore == 'c' %}
+                    <img src="{% static 'img/nutric.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;"> {% elif aliment.nutriscore == 'd' %}
+                    <img src="{% static 'img/nutrid.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;"> {% elif aliment.nutriscore == 'e' %}
+                    <img src="{% static 'img/nutrie.png' %}" class="rounded float-left" alt="..." style="width: 120px; height: auto;margin-left: 10px; margin-bottom: 25px;"> {% endif %}
+                </div>
+
+                <h6 class="text-left text-white"><strong>Date de l'information:</strong> {{ date }}</h6>
+                <h6 class="text-left text-white"><strong>Marque :</strong> {{ aliment.brands }}</h6>
+                <h6 class="text-left text-white"><strong>Portions :</strong> {{ aliment.quantity }}</h6>
+                <h6 class="text-left text-white"><strong>Distributeurs :</strong> {{ aliment.brands }}</h6>
+                <h6 class="text-left text-white"><strong>Ingrédients :</strong> {{ aliment.ingredients_fr }}</h6>
+                <h6 class="text-left text-white"><strong>Emballage:</strong> {{ aliment.packaging }}</h6>
+                <h6 class="text-left text-white"><strong>Pays fournisseur :</strong> {{ aliment.manufactured_places }}</h6>
+                <h6 class="text-left text-white"><strong>Code produit :</strong> {{ aliment.code }}</h6>
+                <h6 class="text-left text-white"><strong>Provenance de l'information :</strong> {{ aliment.purchase_places }}</h6>
+                <br>
+                <h3 class="text-center text-white"><a href="{{aliment.url}}" style="color: burlywood;">Voir la fiche d'OpenFoodFact</a></h3>
+            </div>
         </div>
-    </div>
-  </footer>
+    </header>
+    {% endblock %}
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Footer -->
+    <footer class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="small text-center text-muted">Mentions légales</div>
+                </div>
+                <div class="col-sm">
 
-  <!-- Custom scripts for this template -->
-  <script src="{% static 'js/creative.min.js'%}"></script>
-  <script src="{% static 'js/infos.js'%}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
+                </div>
+                <div class="col-sm">
+                    <div class="small text-center text-muted">Contact</div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'js/creative.min.js'%}"></script>
+    <script src="{% static 'js/infos.js'%}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
 
 </body>
 

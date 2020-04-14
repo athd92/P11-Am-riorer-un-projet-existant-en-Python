@@ -27,9 +27,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get("username")
-            messages.success(
-                request,
-                f"Bienvenue {username}, votre profile est créé!")
+            messages.success(request, f"Bienvenue {username}, votre profile est créé!")
             login(request, user)
 
             return redirect("main:homepage")
@@ -45,9 +43,7 @@ def register(request):
 
     form = UserFormWithEmail
     return render(
-        request=request,
-        template_name="main/register.html",
-        context={"form": form}
+        request=request, template_name="main/register.html", context={"form": form}
     )
 
 
@@ -88,9 +84,7 @@ def login_request(request):
                 pass
         form = AuthenticationForm()
         return render(
-            request=request,
-            template_name="main/login.html",
-            context={"form": form}
+            request=request, template_name="main/login.html", context={"form": form}
         )
 
 
@@ -181,10 +175,7 @@ def infos(request, aliment_id):
     date = aliment.date
     date = date[2:12]
     print(f"DATE {date}")
-    context = {
-        "aliment": aliment,
-        "date": date,
-    }
+    context = {"aliment": aliment, "date": date, "aliment_id": aliment_id}
 
     return render(request, "main/infos.html", context)
 
@@ -340,5 +331,15 @@ def delete_from_main(request, aliment_id):
         return redirect(path)
 
 
-def send_infos(request):
-    pass
+def send_infos(request, aliment_id):
+    """
+    Function used to send aliment infos by mail
+    """
+    path = request.META.get("HTTP_REFERER")
+    if request.user.is_authenticated:
+        print("ALIMENT ID ")
+        print(aliment_id)
+        aliment = Aliment.objects.filter(id=aliment_id)
+        for i in aliment:
+            print(i.ingredients_fr)
+        return redirect(path)
