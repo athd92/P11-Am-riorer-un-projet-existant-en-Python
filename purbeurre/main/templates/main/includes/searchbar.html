@@ -1,0 +1,17 @@
+
+
+{% load bootstrap4 %}
+
+{% block content %}
+<form action="{% url 'main:aliments' %}" method="GET">
+    {% csrf_token %}
+    {{ form }}
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" aria-describedby="basic-addon2" id='aliments' name='aliments' required value="{{ request.GET.aliments }}">
+    <div class="input-group-append">
+        <input class="btn btn-primary btn-m js-scroll-trigger"  type="submit" name="action" value="Chercher" />
+    </div>
+    </div>
+</form>
+{% endblock %}
+

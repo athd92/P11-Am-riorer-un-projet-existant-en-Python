@@ -1,0 +1,33 @@
+
+{% extends 'main/homepage.html' %}
+
+{% block content %}
+
+{% load bootstrap4 %}
+<header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center text-center">
+     
+    {# Display a form #}
+        <div class='row justify-content-center' >
+          <div class="col-12">
+             <div class="card">
+               <div class="card-body">
+                    <form method="post" class="form" style="color: goldenrod; ">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary btn-block">Valider</button>
+                    {% endbuttons %}
+                    Si vous disposez déjà d'un compte, cliquez sur : <a href="/login" target="blank"><strong>Me connecter</strong></a>.
+                    </form>
+                  </div>
+              </div>      
+            </div>
+          </div>
+    </div>    
+    </div>
+    </div>
+  </header>
+{% endblock %}
+

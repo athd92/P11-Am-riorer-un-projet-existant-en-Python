@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Pur Beurre</title>
+  <link rel="icon" type="image/png" href="{% static 'img/logo_pur_beurre-favicon.png' %}" />
+  <!-- Font Awesome Icons -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="/">
+  <img class="img-fluid " src="{% static 'img/logo_pur_beurre.png' %}" alt="" style="width: 20%;">
+  Pur Beurre</a>
+  <div class="navbar-toggler" data-toggle="collapse" data-target='#navbarResponsive'>
+    <span class="navbar-toggler-icon"></span>
+  </div>
+
+
+
+{% if user.is_authenticated %}
+<div class="collapse navbar-collapse mr-5 " id="navbarResponsive" >
+<ul class="navbar-nav ml-auto my-2 " >
+
+  <li class="nav-item">
+  <div class="input-group mb-3">
+  {% block formu %}
+  {% include './includes/searchbar.html' %}
+  {% endblock %}
+  </li>
+
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/account"> Mon compte </a>
+</li>
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/saved">Mes aliments</a>
+</li>
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/logout">Déconnexion</a>
+</li>
+{% else %}
+<div class="collapse navbar-collapse mr-5" id="navbarResponsive">
+  <ul class="navbar-nav ml-auto my-2 my-lg-0">
+    <li class="nav-item">
+      <a class="nav-link js-scroll-trigger" href="/login/">
+    <i class="fa fa-user-circle" aria-hidden="true"></i> Me connecter
+  </a>
+  </li>            
+{% endif %}
+</ul>
+</div>
+</nav>
+  <!-- Masthead -->
+  {% block content %}
+
+  <header class="masthead">
+    <div class="container h-50 text-center">
+      <div class="align-items-center text-center" style="margin-top: 35px;">
+        <img src="{% static 'img/account-avatar.png' %}" class="rounded mx-auto d-block" style="max-width: 20%;" >
+          <h1 class="text-center text-white font-weight-bold">{{ user.get_username }}</h1>
+          <hr class="divider my-4">
+          <h5 class="text-center text-white">{{ user.email}}</h5>
+          <hr class="divider my-4">
+          <h5 class="text-center text-warning"><strong>Nombre d'aliments enregistrés</strong></h5>
+          <h1 class="text-center text-white">{{ total }}</h1>
+      </div>
+    </div>
+  </header>
+  {% endblock %}
+
+
+  <!-- Footer -->
+  <footer class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="small text-center text-muted">Mentions légales</div>
+              </div>
+              <div class="col-sm">         
+              </div>
+              <div class="col-sm">
+                <div class="small text-center text-muted">Contact</div>
+              </div>
+
+        </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/creative.min.js'%}"></script>
+
+</body>
+</html>

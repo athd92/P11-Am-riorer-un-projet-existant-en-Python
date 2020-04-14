@@ -1,0 +1,15 @@
+{% block message %}
+<div class="alert alert-success " role="alert" style="z-index: 9999; position: absolute;;">
+    {{message}}    
+</div>    
+{% endblock %}
+
+<!--  JAVASCRIPT TO HIDE MESSAGE-->
+<script>
+window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 3000);
+</script>
+

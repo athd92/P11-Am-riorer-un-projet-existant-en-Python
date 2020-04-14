@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Pur Beurre</title>
+  <link rel="icon" type="image/png" href="{% static 'img/logo_pur_beurre-favicon.png' %}" />
+  <!-- Font Awesome Icons -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top" style="z-index: 0;">
+  {% if messages %}
+  {% for message in messages %}
+<div class="container">
+  <div class='row justify-content-center' >
+    <div class="col-12">
+      <div class="alert alert-success text-center " role="alert" style="z-index: 9999; position: absolute; margin-top: 50px;">
+        {{message}}    
+      </div>             
+    </div>
+  </div>
+</div>
+  {% endfor %}
+  {% endif %}
+  <!-- Navigation -->
+            <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav">
+              <a class="navbar-brand js-scroll-trigger" href="/" style="width: 150px; height: 50px;">
+              <img class="img-fluid " src="{% static 'img/logo_pur_beurre.png' %}" alt="" style="width: 30%;">
+            Pur Beurre</a>
+            <div class="navbar-toggler" data-toggle="collapse" data-target='#navbarResponsive'>
+              <span class="navbar-toggler-icon"></span>
+            </div>
+       
+
+
+          {% if user.is_authenticated %}
+          <div class="collapse navbar-collapse mr-5 " id="navbarResponsive" >
+            <ul class="navbar-nav ml-auto my-2 " >
+            <li class="nav-item">
+          <div class="input-group mb-3">
+
+            {% block formu %}
+            {% include './includes/searchbar.html' %}
+            {% endblock %}
+          </li>
+
+          <li class="nav-item  mt-2">
+            <a class="nav-link js-scroll-trigger" href="{% url 'main:account' %}"> Mon compte </a>
+          </li>
+          <li class="nav-item  mt-2">
+            <a class="nav-link js-scroll-trigger" href="{% url 'main:saved' %}">Mes aliments</a>
+          </li>
+          <li class="nav-item  mt-2">
+            <a class="nav-link js-scroll-trigger" href="{% url 'main:logout' %}">Déconnexion</a>
+          </li>
+          {% else %}
+          <div class="collapse navbar-collapse mr-5" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto my-2 my-lg-0">
+            <li class="nav-item">
+                
+              <a class="nav-link js-scroll-trigger" href="{% url 'main:login' %}">
+              <i class="fa fa-user-circle" aria-hidden="true"></i> Me connecter
+            </a>
+            </li>            
+          {% endif %}
+        </ul>
+      </div>
+  </nav>
+
+  <!-- Masthead -->
+
+  {% block content %}
+
+  <header class="masthead" style="z-index: 2;">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center text-center">
+        <div class="col-lg-10 align-self-end">
+          <h1 class="text-uppercase text-white font-weight-bold">Du gras oui, mais de qualité!</h1>
+          <hr class="divider my-4">
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <h2 class="text-white-75 font-weight-light mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h2>
+          <!-- <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Chercher</a> -->
+          {% block formular %}
+          {% include './includes/searchbar.html' %}
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+  </header>
+  {% endblock %}
+
+  <!-- Services Section -->
+  <section class="page-section" id="services">
+    <div class="container">
+    
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <h2 class="mt-0">Colette et Remy</h2>
+            <hr class="divider my-4">
+            <p class="text-muted mb-5">Pur Beurre est l'initiative de deux amoureux de la gastronomie française, Colette Tatou et Rémy, que vous avez déjà certainement rencontrés dans notre excellent restaurant Ratatouille. 
+            </p>
+          </div>
+        </div>
+        <div class="row" style="display: flex; align-items: center;justify-content: center;">
+          <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+            <img class="img-fluid " src="{% static 'img/remy.jpg' %}" alt="">
+            <div style="text-align: justify;">
+            <p><strong>Remy</strong> : "Pour ma part je me rendais déjà dans bien des magasins car j'aime beaucoup me balader, surtout dans les caves et les cuisines. Je connaissais par coeur le contenu des boutiques bio (dont je raffole) ainsi que les ingrédients de tous les aliments vendus. Lorsque Colette m'a demandé si elle pouvait remplacer son Nutella matinal par un aliment plus sain, je savais tout de suite où le trouver. L'idée de Pur Beurre était née !"</p>
+        </div>  
+        </div>
+          <div class="col-lg-4 mr-auto text-center">
+            <img class="img-fluid " src="{% static 'img/colette-tatou-full.png' %}" alt="" ">
+            <div style="text-align: justify;">
+            <p><strong>Colette Tatou</strong>: "Nous aimons tous manger, surtout en France ! Personnellement, une baguette fraîche, du bon fromage de chèvre et un bon vin rouge me suffisent amplement. Comme tout le monde, je fais mes courses au supermarché. Mais petit à petit je me suis rendue compte, surtout lorsque nous avons ouvert le restaurant, que je pouvais remplacer les produits aseptisés que j'avais l'habitude d'acheter par de bons produits du terroir Et souvent pour le même prix !"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-0">Contactez-nous!</h2>
+          <hr class="divider my-4">
+          <p class="text-muted mb-5">Pour toute demande d'informations, n'hésitez pas prendre attache avec nous</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+          <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
+          <div>+00 (00)0000000</div>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
+          <!-- Make sure to change the email address in anchor text AND the link below! -->
+          <a class="d-block" href="mailto:contact@purbeurre.com">mail@mail.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="small text-center text-muted"><a href='/mentions'>Mentions légales</a></div>
+              </div>
+              <div class="col-sm">
+                
+              </div>
+              <div class="col-sm">
+                <div class="small text-center text-muted">Contact</div>
+              </div>
+
+        </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/creative.min.js'%}"></script>
+
+  <script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 3000);
+  </script>
+  
+</body>
+
+</html>

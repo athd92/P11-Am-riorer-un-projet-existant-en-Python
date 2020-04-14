@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Pur Beurre</title>
+  <link rel="icon" type="image/png" href="{% static 'img/logo_pur_beurre-favicon.png' %}" />
+  <!-- Font Awesome Icons -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+
+</head>
+<body id="page-top">
+{% if count != 0 %}
+<section class="page-section bg-primary" id="about" style="height: 16em;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="text-white mt-0">Vous avez {{count}} aliment(s) enegistré(s)</h2>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section>
+  {% if messages %}
+  {% for message in messages %}
+<div class="container">
+  <div class='row justify-content-center' >
+    <div class="col-12">
+      <div class="alert alert-success text-center " role="alert" style="z-index: 9999; position: absolute; margin-top: 50px;">
+        {{message}}    
+      </div>             
+    </div>
+  </div>
+</div>
+  {% endfor %}
+  {% endif %}
+  <!-- Navigation -->
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="/">
+  <img class="img-fluid " src="{% static 'img/logo_pur_beurre.png' %}" alt="" style="width: 20%;">
+  Pur Beurre</a>
+  <div class="navbar-toggler" data-toggle="collapse" data-target='#navbarResponsive'>
+    <span class="navbar-toggler-icon"></span>
+  </div>
+
+
+
+{% if user.is_authenticated %}
+<div class="collapse navbar-collapse mr-5 " id="navbarResponsive" >
+<ul class="navbar-nav ml-auto my-2 " >
+<li class="nav-item">
+<div class="input-group mb-3">
+
+  {% block formu %}
+  {% include './includes/searchbar.html' %}
+  {% endblock %}
+</li>
+
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/account"> Mon compte </a>
+</li>
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/saved">Mes aliments</a>
+</li>
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/logout">Déconnexion</a>
+</li>
+{% else %}
+<div class="collapse navbar-collapse mr-5" id="navbarResponsive">
+  <ul class="navbar-nav ml-auto my-2 my-lg-0">
+  <li class="nav-item">
+      
+    <a class="nav-link js-scroll-trigger" href="/login/">
+    <i class="fa fa-user-circle" aria-hidden="true"></i> Me connecter
+  </a>
+  </li>            
+{% endif %}
+</ul>
+</div>
+</nav>
+  <!-- Masthead -->
+  {% block content %}
+
+
+  {% load bootstrap4 %}
+  <header class="masthead">
+  
+  <div class="row justify-content-center align-items-center " style="margin-top: -60px;" >
+
+    {% if aliments %}
+      {% for aliment in aliments %}
+      <div class="card m-3 flex align-items-stretch" style="width: 23rem; height: 19rem;">
+          {% if aliment.nutriscore == 'a' %}
+          <div class='nutri' style="width: 40px;border-style: solid; border-color: aliceblue; height: 40px;text-align: center; color:white;background-color: green; border-radius: 50%; margin-left: 95%;margin-top: -5%; position:absolute; padding-top: 6px;">{{aliment.nutriscore|upper}}</div>
+          {% elif aliment.nutriscore == 'b' %}
+          <div class='nutri' style="width: 40px;border-style: solid; border-color: aliceblue; height: 40px;text-align: center; color:white;background-color: #32CD32; border-radius: 50%; margin-left: 95%;margin-top: -5%; position:absolute; padding-top: 6px;">{{aliment.nutriscore|upper}}</div>
+          {% elif aliment.nutriscore == 'c' %}
+          <div class='nutri' style="width: 40px;border-style: solid; border-color: aliceblue; height: 40px;text-align: center; color:white;background-color: #FFD700; border-radius: 50%; margin-left: 95%;margin-top: -5%; position:absolute; padding-top: 6px;">{{aliment.nutriscore|upper}}</div>
+          {% elif aliment.nutriscore == 'd' %}
+          <div class='nutri' style="width: 40px;border-style: solid; border-color: aliceblue; height: 40px;text-align: center; color:white;background-color: #FFA500; border-radius: 50%; margin-left: 95%;margin-top: -5%; position:absolute; padding-top: 6px;">{{aliment.nutriscore|upper}}</div>
+          {% elif aliment.nutriscore == 'e' %}
+          <div class='nutri' style="width: 40px;border-style: solid; border-color: aliceblue; height: 40px;text-align: center; color:white;background-color:  #FF0000; border-radius: 50%; margin-left: 95%;margin-top: -5%; position:absolute; padding-top: 6px;">{{aliment.nutriscore|upper}}</div>
+          {% endif %}
+          <div class="card-body" style="text-align: center;">
+              <img class="card-img-top mx-auto d-block" src="{{aliment.image}}" alt="Card image cap" style="width: 160px; height: 160px;">
+            <h5 class="card-title" style="margin-top: 20px;">{{aliment.name|slice:":27" }}...</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Marque: {{aliment.brands|slice:":30"}}</h6>
+            <a href="{% url 'main:infos' aliment_id=aliment.id %}" class="card-link"><i class="fa fa-info-circle" style="font-size:18px"></i>
+              Infos</a>
+            {% if user.is_authenticated %}     <!-- FONCTION DE SUPPRESSION A FINIR-->      
+            <a href="{% url 'main:delete' aliment_id=aliment.id %}" class="card-link"  style="padding-left: 90px;"><i class="fa fa-trash " style="font-size:26px;"></i>
+              Supprimer</a>
+            {% else %}
+            {% endif %}
+      </div>
+        </div>
+      {% endfor %}
+      {% endif %}
+
+      {% if not aliments %}
+        <div class="container h-50 text-center">
+          <div class="align-items-center text-center" style="margin-top: 150px;">
+            <h5 class="text-center text-white">VOUS N'AVEZ AUCUN ALIMENT ENREGISTRÉ</h5>   
+            <hr class="divider my-4">
+          </div>
+        </div>
+
+      {% endif%}
+  
+  </div>
+  
+  
+  <div class="pagination justify-content-center align-items-center" >
+  {% if aliments.has_other_pages %}
+      <ul class="pagination">
+          {% if aliments.has_previous %}
+              <li class="waves-effect"><a href="?page=
+                      {{ aliments.previous_page_number }}{% if request.GET.aliments %}&aliments={{ request.GET.aliments }}{% endif %}"><i
+                      class="material-icons"> précédents </i></a></li>
+          {% else %}
+          {% endif %}
+          
+          {% if aliments.has_next %}
+              <li class="waves-effect" style="margin-left: 20px;"><a
+                      href="?page={{ aliments.next_page_number }}{% if request.GET.aliments %}&aliments={{ request.GET.aliments }}{% endif %}"><i
+                      class="material-icons">  suivants</i></a></li>
+          {% else %}
+          {% endif %}
+      </ul>
+  {% endif %}
+  </div>
+  
+    </header>
+  </section>
+
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="small text-center text-muted">Mentions légales</div>
+              </div>
+              <div class="col-sm">
+              </div>
+              <div class="col-sm">
+                <div class="small text-center text-muted">Contact</div>
+              </div>
+        </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/creative.min.js'%}"></script>
+
+  <script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 3000);
+  </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Pur Beurre</title>
+  <link rel="icon" type="image/png" href="{% static 'img/logo_pur_beurre-favicon.png' %}" />
+  <!-- Font Awesome Icons -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="{% static 'vendor/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="{% static 'css/creative.min.css' %}" rel="stylesheet">
+
+</head>
+<body id="page-top">
+
+
+<section>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-light navbar-expand-lg fixed-top " id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="/">
+  <img class="img-fluid " src="{% static 'img/logo_pur_beurre.png' %}" alt="" style="width: 20%;">
+  Pur Beurre</a>
+  <div class="navbar-toggler" data-toggle="collapse" data-target='#navbarResponsive'>
+    <span class="navbar-toggler-icon"></span>
+  </div>
+
+
+
+{% if user.is_authenticated %}
+<div class="collapse navbar-collapse mr-5 " id="navbarResponsive" >
+<ul class="navbar-nav ml-auto my-2 " >
+<li class="nav-item">
+<div class="input-group mb-3">
+
+  {% block formu %}
+  {% include './includes/searchbar.html' %}
+  {% endblock %}
+</li>
+
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/account"> Mon compte </a>
+</li>
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/saved">Mes aliments</a>
+</li>
+<li class="nav-item  mt-2">
+  <a class="nav-link js-scroll-trigger" href="/logout">Déconnexion</a>
+</li>
+{% else %}
+<div class="collapse navbar-collapse mr-5" id="navbarResponsive">
+  <ul class="navbar-nav ml-auto my-2 my-lg-0">
+  <li class="nav-item">
+      
+    <a class="nav-link js-scroll-trigger" href="/login/">
+    <i class="fa fa-user-circle" aria-hidden="true"></i> Me connecter
+  </a>
+  </li>            
+{% endif %}
+</ul>
+</div>
+</nav>
+  <!-- Masthead -->
+  {% block content %}
+
+
+  {% load bootstrap4 %}
+  <header class="masthead">
+  
+        <div class="container h-50 text-center">
+          <div class="align-items-center text-center" style="margin-top: 50px;">
+            <h5 class="text-center text-white">Mentions légales</h5>   
+            <hr class="divider my-4">
+    <div class="container">
+
+      <div class="col-lg-12 col-md-12 text-left">
+        <h4 class="text-light">Article 1</h4>
+        <h6 class="text-light">La connexion et la navigation sur le site Pur Beurre par l’Utilisateur implique acceptation intégrale et sans réserve des présentes mentions légales. Ces dernières sont accessibles sur le site à la rubrique « Mentions légales ». </h6>
+        <h4 class="text-light">Article 2</h4>
+        <h6 class="text-light">L'hébergeur du site purbeurre-p8.herokuapp.com est la Société Heroku.</h6>
+        <h4 class="text-light">Article 3</h4>
+        <h6 class="text-light">Le site est accessible par tout endroit, 7j/7, 24h/24 sauf cas de force majeure, interruption programmée ou non et pouvant découler d’une nécessité de maintenance. En cas de modification, interruption ou suspension des services le site purbeurre-rt.herokuapp.com ne saurait être tenu responsable. </h6>
+        <h4 class="text-light">Article 4</h4>
+        <h6 class="text-light">Le site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés. En vertu de la loi Informatique et Libertés, en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur peut exercer ce droit par mail à l'adresse : mail@example.com </h6>
+        <h4 class="text-light">Article 5</h4>
+        <h6 class="text-light">L’Utilisateur est informé que lors de ses visites sur le site, un cookie peut s’installer automatiquement sur son logiciel de navigation. En naviguant sur le site, il les accepte. Un cookie est un élément qui ne permet pas d’identifier l’Utilisateur mais sert à enregistrer des informations relatives à la navigation de celui-ci sur le site Internet. L’Utilisateur pourra désactiver ce cookie par l’intermédiaire des paramètres figurant au sein de son logiciel de navigation. </h6>
+      </div>
+
+  </div>
+        </div>
+      </div>
+  </div>
+    </header>
+  </section>
+
+  {% endblock %}
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="{% static 'js/creative.min.js'%}"></script>
+
+  <script>
+    window.setTimeout(function() {
+        $(".alert").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 3000);
+  </script>
+  
+</body>
+
+</html>
