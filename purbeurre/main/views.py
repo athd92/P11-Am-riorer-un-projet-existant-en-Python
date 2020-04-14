@@ -342,4 +342,6 @@ def send_infos(request, aliment_id):
         aliment = Aliment.objects.filter(id=aliment_id)
         for i in aliment:
             print(i.ingredients_fr)
+        messages.success(request, f"Message envoyé!")
+
         return redirect(path)

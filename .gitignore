@@ -5,7 +5,8 @@ env
 *.pyc
 __pycache__/
 local_settings.py
-
+sqlite3.db
+.vscode/
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
