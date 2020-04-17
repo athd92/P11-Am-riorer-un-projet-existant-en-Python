@@ -339,6 +339,8 @@ def send_infos(request, aliment_id):
     """
     path = request.META.get("HTTP_REFERER")
     if request.user.is_authenticated:
+        aliment = Aliment.objects.get(id=aliment_id)
+
         email = request.user.email
         email_from = settings.EMAIL_HOST_USER
 
@@ -348,7 +350,8 @@ def send_infos(request, aliment_id):
 
         subject, from_email, to = 'Fiche aliment Purbeurre', email_from, email_from
         text_content = 'Une petite faim? Voici les informations demandées.'
-        context = {'test':"test"}
+        context = {'aliment': aliment}
+        print(aliment.ingredients_fr)
         html_content = render_to_string('main/email_notif.html', context)
 
 
@@ -357,17 +360,6 @@ def send_infos(request, aliment_id):
         msg.send()
     
 
-
-
-
-
-
-
-        print("ALIMENT ID ")
-        print(aliment_id)
-        aliment = Aliment.objects.filter(id=aliment_id)
-        for i in aliment:
-            print(i.ingredients_fr)
         messages.success(request, f"Message envoyé sur votre messagerie!")
 
         return redirect(path)

@@ -72,17 +72,18 @@
                                                 <tr>
                                                     <td class="last">
                                                         <h4>Voici les informations concernant votre aliment:</h4>
-                                                        <p class="m-b-5">Pour plus d'informations, cliquez sur le liens suivant:</p>
+                                                        <h2>{{aliment.name}}</h2>
+                                                        {% comment %} <p class="m-b-5">Pour plus d'informations, cliquez sur le liens suivant:</p> {% endcomment %}
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="panel">
-                                                        <a href="javascript:;">https://fr.openfoodfacts.org/</a>
+                                                        <img class="img-thumbnail" src="{{aliment.image}}"  style="width: 160px; height: 160px;border-type:solid;border-width:2px;boder-color:white">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <p class="m-t-15 last">If clicking the URL above does not work, copy and paste the URL into a browser window.</p>
+                                                        <a href="javascript:;">{{aliment.url}}</a>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -103,13 +104,15 @@
                                             <table class="twelve columns">
                                                 <tr>
                                                     <td>
-                                                        <h4>Aliment</h4>
-                                                        <p>
-                                                            Liste des ingrédients 
-                                                        </p>
-                                                        <p>
-                                                            <a href="index.html"><img src="../assets/img/product/product-preview.jpg" /></a>
-                                                        </p>
+                                                          <h6 class="text-left text-white"><strong>Date de l'information:</strong> {{ date }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Marque :</strong> {{ aliment.brands }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Portions :</strong> {{ aliment.quantity }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Distributeurs :</strong> {{ aliment.brands }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Ingrédients :</strong> {{ aliment.ingredients_fr }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Emballage:</strong> {{ aliment.packaging }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Pays fournisseur :</strong> {{ aliment.manufactured_places }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Code produit :</strong> {{ aliment.code }}</h6>
+                                                            <h6 class="text-left text-white"><strong>Provenance de l'information :</strong> {{ aliment.purchase_places }}</h6>
                                                     </td>
                                                 </tr>
                                             </table>
