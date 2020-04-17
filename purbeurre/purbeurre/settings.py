@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'tinymce',
     'purbeurre',
+    'django_inlinecss'
 ]
 
 MIDDLEWARE = [
@@ -74,20 +75,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'purbeurre.wsgi.application'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'purbeurredb',
-#         'USER': 'guest',
-#         'PASSWORD': 'password1234',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 DATABASES = {
     'default': {
