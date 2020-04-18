@@ -12,6 +12,10 @@ from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
+from celery import shared_task
+import time
+from .mailing import mailer
+
 
 def homepage(request):
     """
@@ -333,33 +337,34 @@ def delete_from_main(request, aliment_id):
         return redirect(path)
 
 
+
 def send_infos(request, aliment_id):
     """
     Function used to send aliment infos by mail
     """
-    path = request.META.get("HTTP_REFERER")
     if request.user.is_authenticated:
+        messages.success(request, f"SENDING EMAIL!")
         aliment = Aliment.objects.get(id=aliment_id)
-
         email = request.user.email
         email_from = settings.EMAIL_HOST_USER
-
         subject = 'Fiche aliment'
         message = 'Voici la fiche demandée'
-
-
         subject, from_email, to = 'Fiche aliment Purbeurre', email_from, email_from
         text_content = 'Une petite faim? Voici les informations demandées.'
         context = {'aliment': aliment}
-        print(aliment.ingredients_fr)
         html_content = render_to_string('main/email_notif.html', context)
+        
+        const = {
+            'subject': subject,
+            'message': message,
+            'text_content': text_content,
+            'html_content': html_content,
+            'email': email,
+            'email_from':email_from
+        }
 
-
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-    
-
-        messages.success(request, f"Message envoyé sur votre messagerie!")
-
+        path = request.META.get("HTTP_REFERER")
+        mailer.delay(const)
+        
         return redirect(path)
+   
