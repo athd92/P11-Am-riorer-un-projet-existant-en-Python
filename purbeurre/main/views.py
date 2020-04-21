@@ -12,9 +12,7 @@ from django.contrib import messages
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
-from celery import shared_task
 import time
-from .mailing import mailer
 
 
 def homepage(request):
@@ -343,28 +341,27 @@ def send_infos(request, aliment_id):
     Function used to send aliment infos by mail
     """
     if request.user.is_authenticated:
-        messages.success(request, f"SENDING EMAIL!")
-        aliment = Aliment.objects.get(id=aliment_id)
-        email = request.user.email
-        email_from = settings.EMAIL_HOST_USER
-        subject = 'Fiche aliment'
-        message = 'Voici la fiche demandée'
-        subject, from_email, to = 'Fiche aliment Purbeurre', email_from, email_from
-        text_content = 'Une petite faim? Voici les informations demandées.'
-        context = {'aliment': aliment}
-        html_content = render_to_string('main/email_notif.html', context)
+        messages.success(request, f"EMAIL SENT!")
+        # aliment = Aliment.objects.get(id=aliment_id)
+        # email = request.user.email
+        # email_from = settings.EMAIL_HOST_USER
+        # subject = 'Fiche aliment'
+        # message = 'Voici la fiche demandée'
+        # subject, from_email, to = 'Fiche aliment Purbeurre', email_from, email_from
+        # text_content = 'Une petite faim? Voici les informations demandées.'
+        # context = {'aliment': aliment}
+        # html_content = render_to_string('main/email_notif.html', context)
         
-        const = {
-            'subject': subject,
-            'message': message,
-            'text_content': text_content,
-            'html_content': html_content,
-            'email': email,
-            'email_from':email_from
-        }
+        # const = {
+        #     'subject': subject,
+        #     'message': message,
+        #     'text_content': text_content,
+        #     'html_content': html_content,
+        #     'email': email,
+        #     'email_from':email_from
+        # }
 
         path = request.META.get("HTTP_REFERER")
-        mailer.delay(const)
         
         return redirect(path)
    
