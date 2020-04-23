@@ -93,10 +93,29 @@
             <div class="align-items-center text-center" style="margin-top: 70px; opacity: 0.8;">
                 {% if user.is_authenticated%}
                 <h1 class="text-center text-white font-weight-bold">{{aliment.name}}</h1>
-                <a href="{% url 'main:send_infos' aliment_id=aliment.id %}" class="btn btn-success btn-lg" id="mail">Recevoir par mail <i class="far fa-paper-plane"></i></a>
-
+                <a href="#" class="btn btn-success btn-lg" id="mail">Recevoir par mail <i class="far fa-paper-plane"></i></a>
+                <p id="aliment_id" style='display:none'>{{aliment_id}}</p>
                 </a>
                 </p>
+
+                <a href="#" class="btn btn-success btn-lg" style='display:none' id="sending">Envoi en cours 
+                                <div class="spinner-border text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                </a>
+
+
+                <a href="#" class="btn btn-success btn-lg" style='display:none' id="sent">Mail envoyé! <i class="fa fa-check-circle text-white" aria-hidden="true"></i></i></a>
+                <p id="aliment_id" style='display:none'>{{aliment_id}}</p>
+                </a>
+
+                <a href="#" class="btn btn-success btn-lg" style='display:none' id="error">Un problème est survenu! <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i></a>
+                <p id="aliment_id" style='display:none'>{{aliment_id}}</p>
+                </a>
+
+
+
+
                 {% else %}
                 <h1 class="text-center text-white font-weight-bold">{{aliment.name}}</h1>
                 {% endif %}
@@ -171,5 +190,8 @@
     </script>
 
 </body>
+
+
+
 
 </html>

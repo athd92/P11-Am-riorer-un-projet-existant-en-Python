@@ -13,6 +13,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
 import time
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+from django.template.loader import render_to_string, get_template
 
 
 def homepage(request):
@@ -335,33 +341,42 @@ def delete_from_main(request, aliment_id):
         return redirect(path)
 
 
-
-def send_infos(request, aliment_id):
+@csrf_exempt
+def send_infos(request):
     """
     Function used to send aliment infos by mail
     """
     if request.user.is_authenticated:
-        messages.success(request, f"EMAIL SENT!")
-        # aliment = Aliment.objects.get(id=aliment_id)
-        # email = request.user.email
-        # email_from = settings.EMAIL_HOST_USER
-        # subject = 'Fiche aliment'
-        # message = 'Voici la fiche demandée'
-        # subject, from_email, to = 'Fiche aliment Purbeurre', email_from, email_from
-        # text_content = 'Une petite faim? Voici les informations demandées.'
-        # context = {'aliment': aliment}
-        # html_content = render_to_string('main/email_notif.html', context)
-        
-        # const = {
-        #     'subject': subject,
-        #     'message': message,
-        #     'text_content': text_content,
-        #     'html_content': html_content,
-        #     'email': email,
-        #     'email_from':email_from
-        # }
+        if request.method == "POST":
+            if request.is_ajax():
+                aliment_id = request.POST["aliment_id"]
+                aliment = Aliment.objects.get(id=aliment_id)
 
-        path = request.META.get("HTTP_REFERER")
-        
-        return redirect(path)
-   
+                email = request.user.email
+                email_from = settings.EMAIL_HOST_USER
+
+                subject = "Fiche aliment"
+                message = "Voici la fiche demandée"
+
+                subject, from_email, to = (
+                    "Fiche aliment Purbeurre",
+                    email_from,
+                    email_from,
+                )
+                text_content = "Une petite faim? Voici les informations demandées."
+                context = {"aliment": aliment}
+                html_content = render_to_string(
+                    "main/email_notif.html",
+                    context)
+
+                msg = EmailMultiAlternatives(
+                    subject,
+                    text_content,
+                    from_email,
+                    [to])
+
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+
+                return HttpResponse("test")
+    return

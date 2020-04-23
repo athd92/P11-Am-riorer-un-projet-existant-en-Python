@@ -8,14 +8,14 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
 </head>
-<body>
+<body style="background: url({{aliment.url}})">
     <!-- begin page body -->
-    <table class="body">
+    <table class="body" >
         <tr>
             <td class="center" align="center" valign="top">
                 <center>
                     <!-- begin page header -->
-                    <table class="row header" style="background-image: url("{% static 'img/'%}");">
+                    <table class="row header">
                         <tr>
                             <td class="center" align="center">
                                 <center>
@@ -73,12 +73,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="panel">
-                                                        <img class="img-thumbnail" src="{{aliment.image}}"  style="width: 160px; height: 160px;border-type:solid;border-width:2px;boder-color:white">
+                                                        <img class="img-thumbnail" src="{{aliment.image}}" style='border-style: solid; width: 160px; height: 160px; border-width: 5px 5px 5px 5px;-moz-border-image: url() 20 5 5 5 repeat repeat;-webkit-border-image: url() 20 5 5 5 repeat repeat;-o-border-image: url() 20 5 5 5 repeat repeat;border-image: url() 20 5 5 5 repeat repeat;'}>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <a href="javascript:;">{{aliment.url}}</a>
+                                                        <a href="{{aliment.url}}">{{aliment.url}}</a>
                                                     </td>
                                                 </tr>
                                             </table>

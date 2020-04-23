@@ -23,5 +23,5 @@ urlpatterns = [
     path("saved/", views.saved, name="saved"),
     path("delete/<int:aliment_id>/", views.delete, name="delete"),
     path("alternative/<int:aliment_id>", views.alternative, name="alternative"),
-    path("send_infos/<int:aliment_id>/", views.send_infos, name="send_infos")
+    path("send_infos/", views.send_infos, name="send_infos")
 ]
