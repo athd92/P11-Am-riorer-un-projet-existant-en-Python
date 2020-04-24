@@ -19,9 +19,15 @@ urlpatterns = [
         name="delete_from_main",
     ),
     path("infos/<int:aliment_id>/", views.infos, name="infos"),
-    path("save_aliment/<int:aliment_id>/", views.save_aliment, name="save_aliment"),
+    path(
+        "save_aliment/<int:aliment_id>/",
+        views.save_aliment,
+        name="save_aliment",
+    ),
     path("saved/", views.saved, name="saved"),
     path("delete/<int:aliment_id>/", views.delete, name="delete"),
-    path("alternative/<int:aliment_id>", views.alternative, name="alternative"),
-    path("send_infos/", views.send_infos, name="send_infos")
+    path(
+        "alternative/<int:aliment_id>", views.alternative, name="alternative"
+    ),
+    path("send_infos/", views.send_infos, name="send_infos"),
 ]

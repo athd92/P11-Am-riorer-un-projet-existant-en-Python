@@ -13,7 +13,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
 import time
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import requires_csrf_token
 from django.http import JsonResponse
 import json
 from django.core.mail import EmailMultiAlternatives
@@ -37,7 +37,9 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get("username")
-            messages.success(request, f"Bienvenue {username}, votre profile est créé!")
+            messages.success(
+                request, f"Bienvenue {username}, votre profile est créé!"
+            )
             login(request, user)
 
             return redirect("main:homepage")
@@ -53,7 +55,9 @@ def register(request):
 
     form = UserFormWithEmail
     return render(
-        request=request, template_name="main/register.html", context={"form": form}
+        request=request,
+        template_name="main/register.html",
+        context={"form": form},
     )
 
 
@@ -94,7 +98,9 @@ def login_request(request):
                 pass
         form = AuthenticationForm()
         return render(
-            request=request, template_name="main/login.html", context={"form": form}
+            request=request,
+            template_name="main/login.html",
+            context={"form": form},
         )
 
 
@@ -181,7 +187,6 @@ def infos(request, aliment_id):
     selected aliment
     """
     aliment = Aliment.objects.get(id=aliment_id)
-    # name = aliment.name
     date = aliment.date
     date = date[2:12]
     print(f"DATE {date}")
@@ -341,42 +346,37 @@ def delete_from_main(request, aliment_id):
         return redirect(path)
 
 
-@csrf_exempt
+@requires_csrf_token
 def send_infos(request):
     """
     Function used to send aliment infos by mail
     """
     if request.user.is_authenticated:
-        if request.method == "POST":
-            if request.is_ajax():
-                aliment_id = request.POST["aliment_id"]
-                aliment = Aliment.objects.get(id=aliment_id)
+        if request.is_ajax():
 
-                email = request.user.email
-                email_from = settings.EMAIL_HOST_USER
+            aliment_id = request.POST["aliment_id"]
+            aliment = Aliment.objects.get(id=aliment_id)
+            date = aliment.date
+            date = date[2:12]
+            email = request.user.email
+            email_from = settings.EMAIL_HOST_USER
+            subject = "Fiche aliment"
+            message = "Voici la fiche demandée"
+            subject, from_email, to = (
+                "Fiche aliment Purbeurre",
+                email_from,
+                email_from,
+            )
+            text_content = "Une petite faim? Voici les informations demandées."
+            context = {"aliment": aliment, "date": date}
+            html_content = render_to_string("main/email_notif.html", context)
 
-                subject = "Fiche aliment"
-                message = "Voici la fiche demandée"
+            msg = EmailMultiAlternatives(
+                subject, text_content, from_email, [to]
+            )
 
-                subject, from_email, to = (
-                    "Fiche aliment Purbeurre",
-                    email_from,
-                    email_from,
-                )
-                text_content = "Une petite faim? Voici les informations demandées."
-                context = {"aliment": aliment}
-                html_content = render_to_string(
-                    "main/email_notif.html",
-                    context)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
 
-                msg = EmailMultiAlternatives(
-                    subject,
-                    text_content,
-                    from_email,
-                    [to])
-
-                msg.attach_alternative(html_content, "text/html")
-                msg.send()
-
-                return HttpResponse("test")
+            return HttpResponse("test")
     return
