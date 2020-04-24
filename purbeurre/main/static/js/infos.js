@@ -22,12 +22,17 @@ $("#mail").click(function () {
 
     success: function (data, textStatus) {
       console.log("SUCCESS AJAX");
-      $("#sent").show();
-      $("#sent").click(false);
+      if (data.response == "ok") {
+        $("#sent").show();
+        $("#sent").click(false);
+      } else {
+        $("#sent").hide();
+        $("#error").show();
+      }
     },
-    error: function (e) {
+    error: function (req, err) {
       $("#sent").hide();
-      console.log("Ajax request failed: " + e);
+      console.log("Ajax request failed: " + err + req);
       $("#error").show();
     },
   });

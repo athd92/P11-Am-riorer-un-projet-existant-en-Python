@@ -19,6 +19,7 @@ import json
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
+from django.http import JsonResponse
 
 
 def homepage(request):
@@ -367,16 +368,20 @@ def send_infos(request):
                 email_from,
                 email_from,
             )
-            text_content = "Une petite faim? Voici les informations demandées."
-            context = {"aliment": aliment, "date": date}
-            html_content = render_to_string("main/email_notif.html", context)
-
-            msg = EmailMultiAlternatives(
-                subject, text_content, from_email, [to]
-            )
-
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-
-            return HttpResponse("test")
+            try:
+                text_content = (
+                    "Une petite faim? Voici les informations demandées."
+                )
+                context = {"aliment": aliment, "date": date}
+                html_content = render_to_string(
+                    "main/email_notif.html", context
+                )
+                msg = EmailMultiAlternatives(
+                    subject, text_content, from_email, [to]
+                )
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+                return JsonResponse({"response": "ok"})
+            except:
+                return JsonResponse({"response": "error"})
     return

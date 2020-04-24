@@ -3,7 +3,6 @@ from main.models import Aliment, Favorite
 from django.test.client import Client
 from django.contrib.auth.models import User
 
-
 class TestAlimentModel(TestCase):
     '''Calss used to test the aliments model view'''
 
