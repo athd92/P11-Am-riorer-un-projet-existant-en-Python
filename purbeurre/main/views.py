@@ -148,7 +148,6 @@ def aliments(request):
             aliments = paginator.page(1)
         except EmptyPage:
             aliments = paginator.page(paginator.num_pages)
-        print(fav_aliments)
         context = {
             "fav_aliments": fav_aliments,
             "aliments": aliments,
@@ -190,7 +189,6 @@ def infos(request, aliment_id):
     aliment = Aliment.objects.get(id=aliment_id)
     date = aliment.date
     date = date[2:12]
-    print(f"DATE {date}")
     context = {"aliment": aliment, "date": date, "aliment_id": aliment_id}
 
     return render(request, "main/infos.html", context)
