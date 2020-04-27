@@ -20,13 +20,11 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string, get_template
 from django.http import JsonResponse
+from django.views.generic import TemplateView
 
-
-def homepage(request):
-    """
-    This function returns the homepage template
-    """
-    return render(request=request, template_name="main/homepage.html")
+# Corrected the 23-04-2020
+class HomepageView(TemplateView):
+    template_name = "main/homepage.html"
 
 
 def register(request):
@@ -38,9 +36,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get("username")
-            messages.success(
-                request, f"Bienvenue {username}, votre profile est créé!"
-            )
+            messages.success(request, f"Bienvenue {username}, votre profile est créé!")
             login(request, user)
 
             return redirect("main:homepage")
@@ -56,9 +52,7 @@ def register(request):
 
     form = UserFormWithEmail
     return render(
-        request=request,
-        template_name="main/register.html",
-        context={"form": form},
+        request=request, template_name="main/register.html", context={"form": form},
     )
 
 
@@ -99,9 +93,7 @@ def login_request(request):
                 pass
         form = AuthenticationForm()
         return render(
-            request=request,
-            template_name="main/login.html",
-            context={"form": form},
+            request=request, template_name="main/login.html", context={"form": form},
         )
 
 
@@ -367,16 +359,10 @@ def send_infos(request):
                 email_from,
             )
             try:
-                text_content = (
-                    "Une petite faim? Voici les informations demandées."
-                )
+                text_content = "Une petite faim? Voici les informations demandées."
                 context = {"aliment": aliment, "date": date}
-                html_content = render_to_string(
-                    "main/email_notif.html", context
-                )
-                msg = EmailMultiAlternatives(
-                    subject, text_content, from_email, [to]
-                )
+                html_content = render_to_string("main/email_notif.html", context)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
                 msg.attach_alternative(html_content, "text/html")
                 msg.send()
                 return JsonResponse({"response": "ok"})
