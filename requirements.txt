@@ -16,4 +16,4 @@ selenium==3.141.0
 soupsieve==2.0
 sqlparse==0.3.1
 tqdm==4.45.0
-urllib3==1.25.9
+urllib3==1.26.5
